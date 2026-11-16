@@ -1,0 +1,90 @@
+openapi: 3.0.3
+info:
+  title: RampUp API
+  version: 1.0.0
+  description: API REST para onboarding, bloqueios, mentoria e métricas.
+servers:
+  - url: http://localhost:3000
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+paths:
+  /health:
+    get:
+      summary: Verifica disponibilidade da API
+      responses:
+        '200': { description: Serviço disponível }
+  /api/v1/auth/login:
+    post:
+      summary: Autentica um usuário
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email: { type: string, format: email }
+                password: { type: string }
+      responses:
+        '200': { description: Token JWT e perfil }
+        '401': { description: Credenciais inválidas }
+  /api/v1/auth/me:
+    get:
+      summary: Retorna usuário autenticado
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200': { description: Usuário atual }
+  /api/v1/onboarding/trilha:
+    get:
+      summary: Consulta trilha do novato
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200': { description: Tarefas e progresso }
+  /api/v1/onboarding/tasks/{id}/complete:
+    put:
+      summary: Conclui tarefa
+      security: [{ bearerAuth: [] }]
+      parameters: [{ in: path, name: id, required: true, schema: { type: integer } }]
+      responses:
+        '200': { description: Tarefa concluída }
+        '409': { description: Existe bloqueio aberto }
+  /api/v1/onboarding/tasks/{id}/stuck:
+    post:
+      summary: Registra bloqueio e log de erro
+      security: [{ bearerAuth: [] }]
+      parameters: [{ in: path, name: id, required: true, schema: { type: integer } }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [errorLog]
+              properties:
+                errorLog: { type: string }
+      responses:
+        '201': { description: Bloqueio registrado }
+  /api/v1/mentor/buddies/dashboard:
+    get:
+      summary: Lista novatos e bloqueios do Buddy
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200': { description: Dashboard do mentor }
+  /api/v1/mentor/blockers/{id}/resolve:
+    put:
+      summary: Resolve bloqueio de novato acompanhado
+      security: [{ bearerAuth: [] }]
+      parameters: [{ in: path, name: id, required: true, schema: { type: integer } }]
+      responses:
+        '200': { description: Bloqueio resolvido }
+  /api/v1/metrics/rampup-time:
+    get:
+      summary: Consulta indicadores gerenciais
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200': { description: Métricas de onboarding }
