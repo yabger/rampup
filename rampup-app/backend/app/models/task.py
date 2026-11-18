@@ -10,13 +10,14 @@ class PeriodoOnboarding(str, enum.Enum):
     DIA_1 = "DIA_1"
     DIA_2 = "DIA_2"
     SEMANA_1 = "SEMANA_1"
-    MÊS_1 = "MÊS_1"
+    SEMANA_2 = "SEMANA_2"
+    MES_1 = "MES_1"
 
 # Enumeração para o status da tarefa no onboarding do novato
 class StatusTarefa(str, enum.Enum):
     PENDENTE = "PENDENTE"
-    CONCLUIDA = "CONCLUIDA"
-    TRAVADO = "TRAVADO"
+    CONCLUIDO = "CONCLUIDO"
+    BLOQUEADO = "BLOQUEADO"
     ATRASADA = "ATRASADA"
 
 class Trilha(Base):

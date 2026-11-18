@@ -14,7 +14,7 @@ def acionar_botao_estou_travado(
     payload: BloqueioCreate, 
     db: Session = Depends(get_db)): 
     """ Acionado pelo novato ao encontrar um erro. 
-    Altera o status da tarefa para 'TRAVADO' e envia o log de erro para a fila do mentor. """
+    Altera o status da tarefa para 'BLOQUEADO' e envia o log de erro para a fila do mentor. """
     progresso = db.query(ProgressoTarefa).filter(ProgressoTarefa.id_progresso == payload.id_progresso).first() 
     if not progresso: 
         raise HTTPException(
@@ -22,8 +22,8 @@ def acionar_botao_estou_travado(
             detail="Progresso não encontrado."
         )
     
-# 1. Altera o status da tarefa do novato para TRAVADO
-    progresso.status = StatusTarefa.TRAVADO 
+# 1. Altera o status da tarefa do novato para BLOQUEADO
+    progresso.status = StatusTarefa.BLOQUEADO
 
 # 2. Busca o mentor vinculado a este novato
     vinculo = db.query(VinculoMentoria).filter(VinculoMentoria.id_novato == progresso.id_usuario).first() 
@@ -44,7 +44,7 @@ def acionar_botao_estou_travado(
 @router.put("/{id_bloqueio}/unblock", response_model=BloqueioResponse) 
 def destravar_novato(id_bloqueio: int, db: Session = Depends(get_db)): 
     """ Acionado pelo Mentor (Buddy) para destravar o novato. 
-    Marca o bloqueio como RESOLVIDO e altera a tarefa para CONCLUIDO. """ 
+    Marca o bloqueio como RESOLVIDO e altera a tarefa para PENDENTE. """
     bloqueio = db.query(Bloqueio).filter(Bloqueio.id_bloqueio == id_bloqueio).first() 
     if not bloqueio: 
         raise HTTPException(
@@ -56,11 +56,11 @@ def destravar_novato(id_bloqueio: int, db: Session = Depends(get_db)):
     bloqueio.status_bloqueio = StatusBloqueio.RESOLVIDO
     bloqueio.data_resolucao = datetime.now()
 
-    # 2. Atualiza a tarefa do novato para CONCLUIDO
+    # 2. Retorna a tarefa do novato para PENDENTE
     progresso = db.query(ProgressoTarefa).filter(ProgressoTarefa.id_progresso == bloqueio.id_progresso).first() 
     if progresso: 
-        progresso.status = StatusTarefa.CONCLUIDA
-        progresso.data_conclusao = datetime.now()
+        progresso.status = StatusTarefa.PENDENTE
+        progresso.data_conclusao = None
         db.commit()
         db.refresh(bloqueio)
     return bloqueio

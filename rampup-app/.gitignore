@@ -21,3 +21,6 @@ __pycache__/
 
 # Logs
 *.log
+
+# Build do Vite
+frontend/dist/
