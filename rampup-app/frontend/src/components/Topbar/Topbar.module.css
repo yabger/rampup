@@ -1,0 +1,64 @@
+.topbar {
+    min-height: 72px;
+    padding: 12px clamp(16px, 3vw, 48px);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: #fff;
+    border-bottom: 1px solid var(--divider);
+}
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+.separator {
+    color: var(--sky);
+}
+
+.current {
+    font-weight: 600;
+    color: var(--navy);
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.userInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.avatar {
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--navy);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.userName {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--navy);
+}
+
+.userRole {
+    font-size: 12px;
+    color: var(--text-muted);
+}

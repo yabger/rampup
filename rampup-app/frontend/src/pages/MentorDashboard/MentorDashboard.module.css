@@ -1,0 +1,110 @@
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
+    gap: 16px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background: #fff;
+    border: 1px solid var(--sky);
+    border-radius: var(--radius-md);
+    box-shadow: 0 18px 36px -28px rgba(26, 44, 91, 0.45);
+}
+
+.cardHeader {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 12px;
+    font-size: 13px;
+}
+
+.time {
+    color: var(--text-muted);
+}
+
+.taskTitle {
+    margin: 0 0 16px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.log {
+    flex: 1;
+    margin-bottom: 16px;
+    padding: 12px;
+    background: var(--navy);
+    border-radius: var(--radius-sm);
+}
+
+.logHeader {
+    margin-bottom: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sky);
+}
+
+.logCode {
+    max-height: 120px;
+    margin: 0;
+    overflow-y: auto;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: #FFD9D5;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.btn {
+    width: 100%;
+    min-height: 44px;
+    padding: 0 20px;
+    border: 0;
+    border-radius: var(--radius-sm);
+    background: var(--navy);
+    color: #fff;
+    font: 600 14px var(--font);
+    cursor: pointer;
+}
+
+.btn:hover:not(:disabled) {
+    background: var(--blue);
+}
+
+.btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.btn:focus-visible {
+    outline: 3px solid var(--blue);
+    outline-offset: 2px;
+}
+
+.emptyState {
+    padding: 56px 20px;
+    text-align: center;
+    background: var(--bg-app);
+    border: 1px dashed var(--sky);
+    border-radius: var(--radius-md);
+}
+
+.emptyTitle {
+    margin: 0 0 6px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.emptyText {
+    max-width: 400px;
+    margin: 0 auto;
+    font-size: 14px;
+    color: var(--text-muted);
+}
