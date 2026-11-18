@@ -29,9 +29,11 @@ export default function MentorDashboard({ mentorId = 2 }) {
             setResolvingId(idBloqueio);
             await blockAPI.destravarNovato(idBloqueio);
             // Remove o alerta resolvido da lista na tela em tempo real
-            setBloqueios((prev) => prev.filter((item) => item.id !== idBloqueio));
+            setBloqueios((prev) =>
+                prev.filter((item) => item.id_bloqueio !== idBloqueio)
+            );
         } catch (err) {
-            alert('Falha ao destravar tarefa. Tente novamente.');
+	     alert('Falha ao destravar tarefa. Tente novamente.');
         } finally {
             setResolvingId(null);
         }
