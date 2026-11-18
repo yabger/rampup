@@ -10,6 +10,13 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 if not DATABASE_URL:
     DATABASE_URL = "postgresql://postgres:Minnie@localhost:5432/rampup_db"
 
+if DATABASE_URL.startswith("postgresql://"):
+    DATABASE_URL = DATABASE_URL.replace(
+        "postgresql://",
+        "postgresql+psycopg2://",
+        1
+    )
+
 # 1. Cria o Motor de Conexão (Engine) 
 engine = create_engine(DATABASE_URL, echo=False) 
 
