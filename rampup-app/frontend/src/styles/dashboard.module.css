@@ -1,0 +1,80 @@
+/* Blocos de layout compartilhados pelas dashboards (novato e mentor) */
+.main {
+    width: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 32px clamp(16px, 3vw, 48px) 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.greeting {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.title {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+}
+
+.lead {
+    margin: 0;
+    max-width: 560px;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--text-muted);
+}
+
+.summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+    gap: 16px;
+}
+
+.statCard {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px 18px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+}
+
+.statLabel {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.statValue {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.sectionTitle {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+}
+
+.loading {
+    padding: 40px;
+    text-align: center;
+    color: var(--text-muted);
+}
