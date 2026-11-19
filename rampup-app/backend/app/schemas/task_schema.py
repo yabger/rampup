@@ -2,13 +2,15 @@ from datetime import datetime
 from typing import Optional, List 
 from pydantic import BaseModel, ConfigDict 
 from app.models.task import PeriodoOnboarding, StatusTarefa
+from app.schemas.user_schema import UsuarioResponse
 
 # --- SCHEMAS DE TAREFA ---
-class TarefaBase(BaseModel): 
-    titulo: str 
-    periodo: PeriodoOnboarding = PeriodoOnboarding.DIA_1 
-    tempo_estimado_min: Optional[int] = 30 
-    link_tutorial: Optional[str] = None 
+class TarefaBase(BaseModel):
+    titulo: str
+    descricao: Optional[str] = None
+    periodo: PeriodoOnboarding = PeriodoOnboarding.DIA_1
+    tempo_estimado_min: Optional[int] = 30
+    link_tutorial: Optional[str] = None
     ordem: int = 1
 
 class TarefaCreate(TarefaBase): 
@@ -38,14 +40,14 @@ class TrilhaResponse(TrilhaBase):
 class ProgressoTarefaUpdate(BaseModel): 
     status: StatusTarefa 
 
-class ProgressoTarefaResponse(BaseModel): 
-    id_progresso: int 
-    id_usuario: int 
-    id_tarefa: int 
-    status: StatusTarefa 
-    data_inicio: Optional[datetime] = None 
-    data_conclusao: Optional[datetime] = None 
-    tarefa: Optional[TarefaResponse] = None 
-
+class ProgressoTarefaResponse(BaseModel):
+    id_progresso: int
+    id_usuario: int
+    id_tarefa: int
+    status: StatusTarefa
+    data_inicio: Optional[datetime] = None
+    data_conclusao: Optional[datetime] = None
+    tarefa: Optional[TarefaResponse] = None
+    usuario: Optional[UsuarioResponse] = None
 
     model_config = ConfigDict(from_attributes=True)
