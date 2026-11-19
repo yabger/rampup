@@ -2,7 +2,7 @@
 from typing import List 
 from datetime import datetime 
 from fastapi import APIRouter, Depends, HTTPException, status 
-from sqlalchemy.orm import Session 
+from sqlalchemy.orm import Session, joinedload
 from app.database import get_db 
 from app.models.task import Trilha, Tarefa, ProgressoTarefa, StatusTarefa 
 from app.schemas.task_schema import TrilhaResponse, ProgressoTarefaResponse, ProgressoTarefaUpdate 
@@ -16,7 +16,15 @@ router = APIRouter(prefix="/api/v1/onboarding", tags=["Trilhas & Onboarding"])
 def obter_trilha_do_novato(id_usuario: int, db: Session = Depends(get_db)): 
     """ Retorna todas as tarefas atribuídas ao novato e seus respectivos status 
     (PENDENTE, CONCLUIDO, BLOQUEADO). """
-    progressos = db.query(ProgressoTarefa).filter(ProgressoTarefa.id_usuario == id_usuario).all() 
+    progressos = (
+        db.query(ProgressoTarefa)
+        .options(
+            joinedload(ProgressoTarefa.tarefa),
+            joinedload(ProgressoTarefa.usuario)
+        )
+        .filter(ProgressoTarefa.id_usuario == id_usuario)
+        .all()
+    )
     if not progressos: 
         raise HTTPException( 
             status_code=status.HTTP_404_NOT_FOUND, 
