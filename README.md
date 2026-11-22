@@ -10,7 +10,6 @@ A proposta é organizar o processo de integração de novos colaboradores técni
 
 - Erika Cunha
 - Gerson Yabiku
-- Jessica Garcia
 - Manuele Xavier
 
 ## Funcionalidades implementadas
